@@ -1,0 +1,20 @@
+ audio_data = recognizer.listen(source)
+
+        # Пытаемся распознать речь с помощью облачного сервиса распознавания (Google Speech Recognition)
+        try:
+            text = recognizer.recognize_google(audio_data, language=input_lang)
+            print(f"Вы сказали: {text}")
+
+            # Используем gTTS для синтеза речи на другом языке
+            translated_audio = gTTS(text, lang=output_lang)
+
+            # Сохраняем синтезированную речь в файл audio.mp3
+            translated_audio.save("translated_audio.mp3")
+
+            # Воспроизводим аудиофайл с переведенной речью
+            os.system("start translated_audio.mp3")
+
+        except sr.UnknownValueError:
+            print("Не удалось распознать речь")
+        except sr.RequestError as e:
+            print(f"Ошибка при запросе к сервису распознавани
